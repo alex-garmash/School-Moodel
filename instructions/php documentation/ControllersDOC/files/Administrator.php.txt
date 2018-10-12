@@ -1,0 +1,373 @@
+<?php
+
+    class Administrator
+    {
+        /**
+         * function check if user logged if not redirect to login page
+         * if exist check if user have permission view administrator page if not redirect to school page
+         */
+        public function main()
+        {
+            // check if user logged if not redirect to login page.
+            if(Session::logged() == NULL){
+                header("location: /" . ROOT . 'login');
+            }
+            // if logged only administrator with role owner or manager have access to administration page.
+            else if(Session::logged()['role'] == 'manager' || Session::logged()['role'] == 'owner'){
+                // creating administration page.
+
+                $data = NULL;
+                $p = new Page("Administration Page");
+                $p->setComponent("htmlAdministrator.php", $data);
+                $p->addCss("administrator.css");
+                $p->addJs('administrator.js');
+                $p->dumpView();
+            }
+            // not owner or manager trying access to administrator page, redirect to school page.
+            else{
+                header("location: /" . ROOT . 'school');
+            }
+        }
+
+        /**
+         *  function create new administrator only owner or manager have accesses to this page,
+         *  someone else redirect to school page.
+         */
+        public function createAdministrator()
+        {
+            // only owner or manager can create new administrator.
+            if(Session::logged()['role'] == 'owner' || Session::logged()['role'] == 'manager'){
+                // POST METHOD
+                if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                    $userModel = new UserModel();
+                    $administratorModel = new AdministratorModel();
+                    $errorArray = [];
+                    $post = $_POST;
+                    $imageName = NULL;
+                    $data = NULL;
+
+                    // checking if post method not empty.
+                    if(!empty($post)){
+                        // validations
+                        if(empty(trim($post['administrator_name']))){
+                            $errorArray[] = "Name";
+                        }else{
+                            $data['addedit']['administrator_name'] = trim($post['administrator_name']);
+                        }
+                        if(empty(trim($post['administrator_phone']))){
+                            $errorArray[] = "Phone";
+                        }else{
+                            $data['addedit']['administrator_phone'] = trim($post['administrator_phone']);
+                        }
+                        if(empty(trim($post['administrator_email']))){
+                            $errorArray[] = "Email";
+                        }else{
+                            $data['addedit']['administrator_email'] = trim($post['administrator_email']);
+                        }
+                        if(empty(trim($post['administrator_password']))){
+                            $errorArray[] = "Password";
+                        }else{
+                            $data['addedit']['administrator_password'] = trim($post['administrator_password']);
+                        }
+                        if(trim($post['administrator_role']) == 'empty'){
+                            $errorArray[] = "Role";
+                        }else{
+                            $data['addedit']['administrator_role'] = trim($post['administrator_role']);
+                        }
+                        // checking if new administrator email exist if exist add to errors list.
+                        if($userModel->checkIfUserExist($post['administrator_email'])){
+                            $errorArray[] = "This email already registered";
+                        }
+                        // check if image exist.
+                        if(isset($_FILES['file'])){
+                            // if file don't have errors, create file.
+                            if($_FILES['file']['error'] != 4){
+                                // create image.
+                                $file = new FileUploader($_FILES['file']);
+                                // checking if created file have any validations errors or not.
+                                if(!empty($file->getErrorsFile())){
+                                    // created file have errors, add error to error list.
+                                    $errorArray[] = join(',', $file->getErrorsFile());
+                                }
+                                // created file don't have any validations errors.
+                                else{
+                                    // save name of successful created file name.
+                                    $imageName = $file->getNewFileName();
+                                }
+                            }
+                        }
+                        // checking if there is any validation errors.
+                        if(sizeof($errorArray) > 0){
+                            // creating new page with errors and dump it.
+
+                            $data['err'] = 'ERROR missing: ' . join(',', $errorArray);
+                            $data['action'] = 'create';
+                            $data['btn'] = 'Create';
+                            $data['page'] = 'create';
+                            $page = new Page("Create Administrator");
+                            $page->setComponent("htmlAdministrator.php", $data);
+                            $page->addCss("administrator.css");
+                            $page->addJs('administrator.js');
+                            $page->dumpView();
+                        }
+                        // no validation errors, create administrator.
+                        else{
+                            // create hash.
+                            $pwd = new PasswordHash();
+                            $hash = $pwd->getHash($post['administrator_password']);
+                            // checking if new administrator have/don't have image.
+                            if($imageName == NULL){
+                                // create new administrator without image.
+                                $administratorModel->addAdministratorWithoutImage($post['administrator_name'], $post['administrator_phone'], $post['administrator_email'], $hash, $post['administrator_role']);
+                            }else{
+                                // create new administrator with image.
+                                $administratorModel->addAdministrator($post['administrator_name'], $post['administrator_phone'], $post['administrator_email'], $hash, $post['administrator_role'], $imageName);
+                            }
+                            // after creating new administrator, redirect to administrator page.
+                            header("location: /" . ROOT . "administration");
+                        }
+                    }
+                    // POST METHOD empty redirect to administration page.
+                    else{
+                        header("location: /" . ROOT . "administration");
+                    }
+                }
+
+                // GET METHOD
+                else if($_SERVER['REQUEST_METHOD'] == 'GET'){
+                    // print template of create administrator form.
+
+                    $data = NULL;
+                    $data['actionLink'] = 'administrator/create';
+                    //$data['create'] = true;
+                    $data['action'] = 'create';
+                    $data['btn'] = 'Create';
+                    $data['page'] = 'create';
+                    $page = new Page("Create Administrator");
+                    $page->setComponent("htmlAdministrator.php", $data);
+                    $page->addCss("administrator.css");
+                    $page->addJs('administrator.js');
+                    $page->dumpView();
+                }
+            }
+            // if not owner or manager trying access to create page of administrator, redirect to login.
+            else{
+                header("location: /" . ROOT . "login");
+            }
+        }
+
+        /**
+         * function edit administrator only owner or manager have accesses
+         * @param $id
+         */
+        public function editAdministrator($id)
+        {
+            // only owner or manager can edit administrator.
+            if(Session::logged()['role'] == 'owner' || Session::logged()['role'] == 'manager'){
+                // POST METHOD
+                if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                    $userModel = new UserModel();
+                    $administratorModel = new AdministratorModel();
+                    $noPassword = false;
+                    $errorArray = [];
+                    $post = $_POST;
+                    $imageName = NULL;
+                    $data = NULL;
+                    $data['addedit']['administrator_id'] = $id;
+
+                    // checking if post method not empty.
+                    if(!empty($post)){
+
+                        $checkUser = $userModel->checkIfUserExist($post['administrator_email']);
+                        // validation
+                        if(empty(trim($post['administrator_name']))){
+                            $errorArray[] = "Name";
+                            $data['addedit']['administrator_name'] = '';
+                        }else{
+                            $data['addedit']['administrator_name'] = trim($post['administrator_name']);
+                        }
+                        if(empty(trim($post['administrator_phone']))){
+                            $errorArray[] = "Phone";
+                            $data['addedit']['administrator_phone'] = '';
+                        }else{
+                            $data['addedit']['administrator_phone'] = trim($post['administrator_phone']);
+                        }
+                        if(empty(trim($post['administrator_email']))){
+                            $errorArray[] = "Email";
+                            $data['addedit']['administrator_email'] = '';
+                        }else{
+                            $data['addedit']['administrator_email'] = trim($post['administrator_email']);
+                        }
+                        if(empty(trim($post['administrator_password']))){
+                            $noPassword = true;
+                        }
+                        if(trim($post['administrator_role']) == 'empty'){
+                            $errorArray[] = "Role";
+                            $data['addedit']['administrator_role'] = 'empty';
+                        }else{
+                            $data['addedit']['administrator_role'] = trim($post['administrator_role']);
+                        }
+                        // checking if new email belongs to other administrators.
+                        if($checkUser){
+                            if($checkUser['administrator_id'] != $id && $checkUser['administrator_email'] == $post['administrator_email']){
+                                $errorArray[] = "This email already registered";
+                            }
+                        }
+                        // check if image exist.
+                        if(isset($_FILES['file'])){
+                            // checking if file have any errors.
+                            if($_FILES['file']['error'] != 4){
+                                // file don't have errors create file.
+                                $file = new FileUploader($_FILES['file']);
+                                // checking if created file have any validations errors or not.
+                                if(!empty($file->getErrorsFile())){
+                                    // created file have errors add errors to error list.
+                                    $errorArray[] = join(',', $file->getErrorsFile());
+                                }else{
+                                    // save name of successful created file name.
+                                    $imageName = $file->getNewFileName();
+                                }
+                            }
+                        }
+                        // checking if there is any validation errors.
+                        if(sizeof($errorArray) > 0){
+                            // creating new page with errors and dump it.
+
+                            $data['err'] = 'ERROR: ' . join(',', $errorArray);
+                            $data['action'] = 'edit';
+                            $data['btn'] = 'Edit';
+                            $data['page'] = 'edit';
+                            $page = new Page("Edit Administrator");
+                            $page->setComponent("htmlAdministrator.php", $data);
+                            $page->addCss("administrator.css");
+                            $page->addJs('administrator.js');
+                            $page->dumpView();
+                        }
+                        // no validation errors, edit administrator.
+                        else{
+                            // checking if administrator entered new password or not.
+                            if(!$noPassword){
+                                // administrator entered new password.
+                                // create new hash.
+                                $pwd = new PasswordHash();
+                                $hash = $pwd->getHash($post['password']);
+                                // checking if administrator upload new image or not.
+                                if($imageName == NULL){
+                                    // save new data of administrator without uploading/changing image.
+                                    $administratorModel->editAdministratorWithoutImage($id, $post['administrator_name'], $post['administrator_phone'], $post['administrator_email'], $hash, $post['administrator_role']);
+                                }else{
+                                    // save new data of administrator with uploaded new image.
+                                    $administratorModel->editAdministrator($id, $post['administrator_name'], $post['administrator_phone'], $post['administrator_email'], $hash, $post['administrator_role'], $file->getNewFileName());
+                                }
+                            }
+                            // administrator didn't change password.
+                            else{
+                                if($imageName == NULL){
+                                    // administrator didn't upload new image, and not change password
+                                    $administratorModel->editAdministratorWithoutPasswordAndImage($id, $post['administrator_name'], $post['administrator_phone'], $post['administrator_email'], $post['administrator_role']);
+                                }else{
+                                    // administrator uploaded new image, and not change password
+                                    $administratorModel->editAdministratorWithoutPassword($id, $post['administrator_name'], $post['administrator_phone'], $post['administrator_email'], $post['administrator_role'], $file->getNewFileName());
+                                }
+                            }
+                            // after editing new data of administration redirect to administrator page
+                            header("location: /" . ROOT . "administration");
+                        }
+                    }
+                    // POST METHOD empty redirect to administration page.
+                    else{
+                        header("location: /" . ROOT . "administration");
+                    }
+                }
+                // GET METHOD
+                else if($_SERVER['REQUEST_METHOD'] == 'GET'){
+                    // print template of edit administrator form.
+
+                    $administratorModel = new AdministratorModel();
+                    $data = NULL;
+                    $user = $administratorModel->getAdministratorByID($id);
+
+                    // if someone who not owner want view/edit owner details, redirect to administration page.
+                    if($user['administrator_role'] == 'owner' && Session::logged()['role'] != 'owner'){
+                        header("location: /" . ROOT . 'administration');
+                    }
+                    // if manager want edit other administrators, disable all inputs to change.
+                    if(Session::logged()['id'] != $id && Session::logged()['role'] == 'manager' && $user['administrator_role'] == 'manager'){
+                        $data['readonly'] = 'readonly';
+                    }
+                    // action in form redirect to edit page.
+                    $data['actionLink'] = ROOT . 'administrator/' . $id . '/edit';
+
+                    $data['addedit'] = $user;
+                    $data['action'] = 'edit';
+                    $data['btn'] = 'Edit';
+                    $data['page'] = 'edit';
+                    $page = new Page("Edit Administrator");
+                    $page->setComponent("htmlAdministrator.php", $data);
+                    $page->addCss("administrator.css");
+                    $page->addJs('administrator.js');
+                    $page->dumpView();
+                }
+            }
+            // if not owner or manager trying to access edit page of administrator, redirect to login
+            else{
+                header("location: /" . ROOT . 'login');
+            }
+        }
+
+        /**
+         * function delete administrator by id, only owner or manager have accesses.
+         * owner can't delete itself, manager can delete only sales.
+         * @param $id
+         */
+        public function deleteAdministrator($id)
+        {
+            // only owner or manager can get here, someone else redirect to school.
+            if(Session::logged()['role'] == 'owner' || Session::logged()['role'] == 'manager'){
+                $administratorModel = new AdministratorModel();
+                // get all data of administrator for delete him.
+                $user = $administratorModel->getAdministratorByID($id);
+
+                // check if administrator exist for delete him.
+                if($user){
+                    // if owner want delete administrator.
+                    if(Session::logged()['role'] == 'owner'){
+                        // check if owner want delete itself, if yes redirect to administrator page.
+                        if($user['administrator_role'] == 'owner'){
+                            header("location: /" . ROOT . "administration");
+                        }
+                        // delete administrator and redirect to administrator page
+                        else{
+                            $administratorModel->deleteAdministrator($id);
+                            //delete image of administrator.
+                            $file = new FileUploader();
+                            $file->deleteFile($user['administrator_img']);
+                            header("location: /" . ROOT . "administration");
+                        }
+
+                    }
+                    // if manager want delete sale
+                    else if($user['administrator_role'] == 'sale'){
+                        $administratorModel->deleteAdministrator($id);
+                        //delete image of administrator.
+                        $file = new FileUploader();
+                        $file->deleteFile($user['administrator_img']);
+                        header("location: /" . ROOT . "administration");
+                    }
+                    // manager trying to delete manager or owner throw GET URL redirect to administration page.
+                    else{
+                        header("location: /" . ROOT . "administration");
+                    }
+                }
+                // administrator whit this ID not exist redirect to administrator page.
+                else{
+                    header("location: /" . ROOT . "administration");
+                }
+            }
+            // only owner or manager can get here, someone else redirect to login.
+            else{
+                header("location: /" . ROOT . "login");
+
+            }
+        }
+    }

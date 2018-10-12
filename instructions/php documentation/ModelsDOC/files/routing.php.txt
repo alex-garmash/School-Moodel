@@ -1,0 +1,239 @@
+<?php
+
+    $route = empty($_SERVER['QUERY_STRING']) ? [] : explode('/', strtolower($_SERVER['QUERY_STRING']));
+    $method = $_SERVER['REQUEST_METHOD'];
+
+    // Controllers
+    $administrator = new Administrator();
+    $school = new School();
+    $root = new MainController();
+
+
+    // if routing '/' or empty
+    if(empty($route)){
+        $root->main();
+    }else{
+        switch($route[0]){
+            case 'login':
+                if(empty($route[1])){
+                    if($method == "GET" || $method == "POST"){
+                        $root->login();
+                    }else{
+                        $root->notFoundPage();
+                    }
+                }else{
+                    $root->main();
+                }
+                break;
+            case 'logout':
+                if(empty($route[1])){
+                    if($method == 'GET'){
+                        $root->logout();
+                    }else{
+                        $root->notFoundPage();
+                    }
+                }else{
+                    $root->main();
+                }
+                break;
+            case '404':
+                    $root->notFoundPage();
+                break;
+            case 'school':
+                if(!empty($route[1])){
+                    // switch find 'students' or 'courses'
+                    switch($route[1]){
+                        case 'students':
+                            // students
+
+                            // if path ROOT/school/students only, redirect to root->main
+                            if(empty($route[2])){
+                                    $root->main();
+                            }else{
+                                // ROOT/school/students/ not create or id redirect to root->main
+                                if($route[2] != 'create' && !is_numeric($route[2])){
+                                    $root->main();
+                                }else{
+                                    // ROOT/school/students/create/something exist redirect to root->main
+                                    if($route[2] == 'create' && !empty($route[3])){
+                                        $root->main();
+                                    }
+                                    // create student
+                                    else if($route[2] == 'create'){
+                                        if($method == 'GET' || $method == 'POST')
+                                        {
+                                            $school->createStudent();
+                                        }else{
+                                            $root->notFoundPage();
+                                        }
+                                    }
+                                    // ROOT/school/students/{id}
+                                    // student details
+                                    else if(is_numeric($route[2]) && empty($route[3])){
+                                        if($method == 'GET' ){
+                                            $school->studentDetails($route[2]);
+                                        }else{
+                                            $root->notFoundPage();
+                                        }
+                                    }else{
+                                        if(!empty($route[3])){
+                                            // ROOT/school/{id}/edit or delete
+                                            switch($route[3]){
+                                                // edit student
+                                                case "edit":
+                                                    if($method == 'GET' || $method == 'POST'){
+                                                        $school->editStudent($route[2]);
+                                                    }else{
+                                                        $root->notFoundPage();
+                                                    }
+                                                    break;
+                                                case "delete":
+                                                    // delete student
+                                                    if($method == 'GET'){
+                                                        $school->deleteStudent($route[2]);
+                                                    }else{
+                                                        $root->notFoundPage();
+                                                    }
+                                                    break;
+                                                default:
+                                                    $root->main();
+                                                    break;
+                                            }
+                                        }else{
+                                            // not exist ROOT/school/{id}/edit or delete/something
+                                            $root->main();
+                                        }
+                                    }
+                                }
+                            }
+                            break;
+                        case 'courses':
+                            // courses
+                            // if path ROOT/school/curses only, redirect to root->main
+                            if(empty($route[2])){
+                                //if path ROOT/curses only redirect to root->main
+                                $root->main();
+                            }else{
+                                // ROOT/school/curses/ not create or id redirect to root->main
+                                if($route[2] != 'create' && !is_numeric($route[2])){
+                                    //ROOT/school/curses/ not create or id
+                                    $root->main();
+                                }else{
+                                    // ROOT/school/curses/create/something exist redirect to root->main
+                                    if($route[2] == 'create' && !empty($route[3])){
+                                        $root->main();
+                                    }
+                                    // create curses
+                                    else if($route[2] == 'create'){
+                                        if($method == 'GET' || $method == 'POST'){
+                                            $school->createCourse();
+                                        }else{
+                                            $root->notFoundPage();
+                                        }
+                                    }
+                                    // ROOT/school/curses/{id}
+                                    // curse details
+                                    else if(is_numeric($route[2]) && empty($route[3])){
+                                        if($method == 'GET'){
+                                            $school->courseDetails($route[2]);
+                                        }else{
+                                            $root->notFoundPage();
+                                        }
+                                    }else{
+                                        if(!empty($route[3])){
+                                            // ROOT/school/{id}/edit or delete
+                                            switch($route[3]){
+                                                // edit curse
+                                                case "edit":
+                                                    if($method == 'GET' || $method == 'POST'){
+                                                        $school->editCourse($route[2]);
+                                                    }else{
+                                                        $root->notFoundPage();
+                                                    }
+                                                    break;
+                                                case "delete":
+                                                    // delete curse
+                                                    if($method == 'GET'){
+                                                        $school->deleteCourse($route[2]);
+                                                    }else{
+                                                        $root->notFoundPage();
+                                                    }
+                                                    break;
+                                                default:
+                                                    $root->main();
+                                                    break;
+                                            }
+                                        }else{
+                                            // not exist ROOT/school/{id}/edit or delete/something
+                                            $root->main();
+                                        }
+                                    }
+                                }
+                            }
+                            break;
+                        default:
+                            //not courses or students
+                            $root->main();
+                            break;
+                    }
+                }else{
+                    // ROOT/school/{not 'students' or 'courses'}
+                    //not students or courses
+                    $school->main();
+                }
+                break;
+            case 'administration':
+                //administration
+                if(empty($route[1])){
+                    //administrator main page
+                    $administrator->main();
+                }else{
+                    // ROOT/administration/ not create or id redirect to root->main
+                    if($route[1] != 'create' && !is_numeric($route[1])){
+                        $root->main();
+                    }else{
+                        if($route[1] == 'create'){
+                            // create administrator
+                            if(empty($route[2])){
+                                if($method == 'GET' || $method == 'POST'){
+                                  $administrator->createAdministrator();
+                                }else{
+                                    $root->notFoundPage();
+                                }
+                            }
+                            // ROOT/administration/create/something exists redirect to root->main
+                            else{
+                                $root->main();
+                            }
+                        }
+                        // ROOT/administration/{id}
+                        else if(is_numeric($route[1])){
+                            // ROOT/administration/{id}/edit
+                            if($route[2] == 'edit' && empty($route[3])){
+                                if($method == 'GET' || $method == 'POST'){
+                                    $administrator->editAdministrator($route[1]);
+                                }else{
+                                    $root->notFoundPage();
+                                }
+                            }
+                            // ROOT/administration/{id}/delete
+                            else if($route[2] == 'delete' && empty($route[3])){
+                                if($method == 'GET'){
+                                    $administrator->deleteAdministrator($route[1]);
+                                }else{
+                                    $root->notFoundPage();
+                                }
+                            }else{
+                                $root->main();
+                            }
+                        }else{
+                            $root->main();
+                        }
+                    }
+                }
+                break;
+            default:
+                $root->main();
+                break;
+        }
+    }

@@ -1,0 +1,128 @@
+body{
+    font-size: 20px;
+}
+label,h3{
+    color: blue;
+}
+
+input[type=text],input[type=email],input[type=password]{
+    font-size: 24px;
+}
+input[type=file] {
+    margin-top: 6px;
+}
+label{
+    margin-bottom: 0;
+}
+
+/* Centered Container */
+.foot{
+    display: flex;
+    justify-content: center;
+}
+.title{
+    margin-top: 10px;
+    font-size: 43px;
+    text-align: center;
+    margin-bottom: 2px;
+}
+.image{
+    height: 200px;
+    width: 200px;
+}
+.ctrAdmin{
+    height: 780px;
+    overflow-y: auto;
+}
+.ctrAdmin p {
+    font-size: 15px;
+    color: blue;
+    text-align: center;
+}
+.ctrAdmin ul{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    background-color: white;
+}
+.ctrAdmin img {
+    display: block;
+    margin: 0 auto;
+    height: 100px;
+    width: 100px;
+    border-radius: 50px;
+}
+.ctrAdmin ul > li:last-child{
+    float: none;
+}
+.ctrAdmin li {
+    width: 90%;
+    margin: 10px 0;
+    position: relative;
+    padding-left: 30px;
+    border: 1px solid #aaa;
+    border-radius: 8px;
+    background: linear-gradient(to bottom, #cccccc 0%,#ffffff 25%,#ffffff 75%,#cccccc 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cccccc', endColorstr='#cccccc',GradientType=0 ); /* IE6-9 */
+    cursor: pointer;
+
+    box-shadow: 2px 2px 3px #666;
+    user-select: none;
+}
+
+.ctrAdmin li:before {
+    position: absolute;
+    content: "";
+    left: 4px;
+    top: 50%;
+    margin-top: -10px;
+    border-left: 20px solid #ccc;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+}
+
+.ctrAdmin li:after {
+    position: absolute;
+    content: "";
+    left: 4px;
+    top: 50%;
+    margin-top: -10px;
+    border-left: 5px solid white;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+}
+
+.ctrAdmin li:hover {
+    border-color: #777;
+    box-shadow: 3px 3px 5px #333;
+
+    background: linear-gradient(to bottom, #dddddd 0%,#ffffff 25%,#ffffff 75%,#dddddd 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#dddddd',GradientType=0 ); /* IE6-9 */
+}
+
+.ctrAdmin li:hover:before {
+    border-left-color: #777;
+}
+
+.ctrAdmin li:active {
+    background: #eee;
+    box-shadow: inset 0 1px 1px #666;
+}
+.list-group .list-group-item {
+    border-radius: 15px;
+}
+.image{
+    margin-bottom: 5px;
+}
+.btnSubmit{
+    font-size: 20px;
+}
+.redCtr,.err{
+    color: red;
+}
+.err,.error,.errorImageResolution{
+    color: red;
+    text-align: center;
+    font-size: 19px;
+    font-weight: bold;
+}

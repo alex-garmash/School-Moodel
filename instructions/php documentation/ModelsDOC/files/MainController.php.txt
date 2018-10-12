@@ -1,0 +1,139 @@
+<?php
+
+    class MainController
+    {
+
+        /**
+         * function check if user logged
+         * if logged redirect to school page
+         * else redirect to login page.
+         */
+        public function main()
+        {
+            if(Session::logged() == NULL) {
+                // user not logged redirect to school page.
+                header("location: /" . ROOT . 'login');
+            }else{
+                // user logged redirect to default page school.
+                 header("location: /" . ROOT . 'school');
+            }
+        }
+
+        /**
+         * function
+         */
+        public function login()
+        {
+            // check if user logged or not.
+            if(Session::logged() != NULL) {
+                //user logged redirect to school page.
+                header("location: /" . ROOT . 'school');
+            }
+            // user not logged.
+            else {
+
+                $data = NULL;
+                $p = new Page("Login Page");
+                $p->addCss("login.css");
+                $p->addJs("login.js");
+                $err = [];
+                $method = $_SERVER['REQUEST_METHOD'];
+
+                //GET METHOD
+                if($method == 'GET') {
+                    //dump login page
+
+                    $data['email'] = isset($_POST['userEmail']);
+                    $data['pwd'] = isset($_POST['userPwd']);
+                    $p->setComponent("htmlLoginForm.php", $data);
+                    $p->dumpView();
+
+                }
+                //POST METHOD
+                else if($method == 'POST') {
+                    $userModel = new UserModel();
+
+                    //validations
+
+                    //validate email.
+                    if(empty(trim($_POST['userEmail']))) {
+                        $err[] = "mail";
+                        $data['email'] = "";
+                    } else {
+                        $data['email'] = $_POST['userEmail'];
+                    }
+                    //validate password.
+                    if(empty(trim($_POST['userPwd']))) {
+                        $err[] = "password";
+                        $data['pwd'] = "";
+                    } else {
+                        $data['pwd'] = $_POST['userPwd'];
+                    }
+                    //checking if there are errors.
+                    if(count($err) > 0) {
+                        //dump errors
+                        $data['err'] = "ERROR missing: " . join(',', $err);
+                    }
+                    //there aren't errors.
+                    else {
+                        //get user with this email from Data Base
+                        $res = $userModel->checkIfUserExist($data['email']);
+                        //checking if user with this email exist.
+                        if($res != NULL) {
+                            $pass = new PasswordHash();
+                             //check if hash from input equal to hash from Data Base.
+                            if($pass->pwhash_test($data['pwd'], $res['administrator_hash'])) {
+                                //set user data to Session.
+                                $user = [
+                                    "id" => $res['administrator_id'],
+                                    "name" => $res['administrator_name'],
+                                    "phone" => $res['administrator_phone'],
+                                    "image" => $res['administrator_img'],
+                                    "email" => $res['administrator_email'],
+                                    "role" => $res['administrator_role'],
+                                    "hash" => $res['administrator_hash']
+                                ];
+                                Session::setLogged($user);
+                                //after success validation redirect to school page.
+                                header("location: /" . ROOT . 'school');
+                            }
+                            // hash from input not match with hash from Data Base.
+                            else {
+                                $data['err'] = 'ERROR: wrong email or password';
+                            }
+                        }
+                        //email from input not exist in Data Base.
+                        else {
+                            $data['err'] = 'ERROR: wrong email or password';
+                        }
+                    }
+                    //set components and dump it.
+                    $p->setComponent("htmlLoginForm.php", $data);
+                    $p->dumpView();
+                }
+            }
+        }
+
+        /**
+         * function clean Session user and redirect to root page
+         */
+        public function logout()
+        {
+            Session::logout();
+            header("location: /" . ROOT);
+        }
+
+        /**
+         * function dump 404 page and after 10 seconds redirect to root page.
+         */
+        public function notFoundPage()
+        {
+            $p = new Page("404 Page");
+            $p->addCss("404.css");
+            $p->setComponent("404.php");
+            $p->addJs("404.js");
+            $p->dumpView();
+
+        }
+
+    }

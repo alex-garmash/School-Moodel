@@ -1,0 +1,685 @@
+<?php
+
+    class School
+    {
+
+
+        /**
+         * function check if user logged if not redirect to login page,
+         * else dump school page.
+         */
+        public function main()
+        {
+            //if user logged dump school page.
+            if(Session::logged() != NULL){
+                $data = NULL;
+                $p = new Page("My School Page");
+                $p->setComponent("htmlSchool.php", $data);
+                $p->addCss("school.css");
+                $p->addJs('school.js');
+                $p->dumpView();
+            }
+            //user not logged redirect to login page.
+            else{
+                header("location: /" . ROOT . 'login');
+            }
+        }
+
+        /**
+         * function get one parameter student id,
+         * if user have permissions to view this page and student with this id exist,
+         * dump student details page.
+         * @param $id
+         */
+        public function studentDetails($id)
+        {
+            // check if you have permission to see student details.
+            if(!empty(Session::logged()['role'] == 'owner') || !empty(Session::logged()['role'] == 'manager') || !empty(Session::logged()['role'] == 'sale')){
+
+                    $studentModel = new StudentModel();
+                    $student = $studentModel->getStudentByID($id);
+                    // check if student with this id exist.
+                    if($student){
+                        //dump student details page.
+                        $data = NULL;
+                        $data['create'] = $student;
+                        $data['page'] = "studentDetails";
+                        $p = new Page("Student Details");
+                        $p->setComponent("htmlSchool.php", $data);
+                        $p->addCss("school.css");
+                        $p->addJs('school.js');
+                        $p->dumpView();
+                    }
+                    // student with this id not exist redirect to school page.
+                    else{
+                        header("location: /" . ROOT . "school");
+                    }
+                }
+            // only owner, manager or sale can get here, someone else redirect to school.
+            else{
+                header("location: /" . ROOT . "school");
+            }
+        }
+
+        /**
+         * function check if user have permissions to view this page to create new student,
+         * also checking if exist another student with same email,
+         * if there wasn't errors create new student, and redirect to school page.
+         */
+        public function createStudent()
+        {
+            // check if you have permission create new student.
+            if(!empty(Session::logged()['role'] == 'owner') || !empty(Session::logged()['role'] == 'manager') || !empty(Session::logged()['role'] == 'sale')){
+                $studentModel = new StudentModel();
+
+                // GET METHOD
+                if($_SERVER['REQUEST_METHOD'] == 'GET'){
+                    //dump page create new student.
+                    $data = NULL;
+                    $data['actionLink'] = 'school/students/create';
+                    $data['btn'] = "Create";
+                    $data['page'] = 'createStudent';
+                    $p = new Page("Add Student");
+                    $p->setComponent("htmlSchool.php", $data);
+                    $p->addCss("school.css");
+                    $p->addJs('school.js');
+                    $p->dumpView();
+
+                }
+                // POST METHOD
+                else if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                    $errorArray = [];
+                    $post = $_POST;
+                    $imageName = NULL;
+                    $data = NULL;
+                    $checkBox = NULL;
+
+                    // checking if post not empty.
+                    if(!empty($post)){
+                        // insert all checkbox selected.
+                        $checkBox = $_POST['check_list'];
+
+                        // validation of inputs.
+
+                        if(empty(trim($post['student_name']))){
+                            $errorArray[] = "Name";
+                        }else{
+                            $data['create']['student_name'] = trim($post['student_name']);
+                        }
+                        if(empty(trim($post['student_email']))){
+                            $errorArray[] = "Email";
+                        }else{
+                            //checking if exist another student with same email.
+                            if($studentModel->checkIfStudentExist($post['student_email'])){
+                                $errorArray[] = "This email belong to another student";
+                            }
+                            $data['create']['student_email'] = trim($post['student_email']);
+                        }
+                        if(empty(trim($post['student_phone']))){
+                            $errorArray[] = "phone";
+                        }else{
+                            $data['create']['student_phone'] = trim($post['student_phone']);
+                        }
+
+                        // check if image exist.
+                        if(isset($_FILES['file'])){
+                            if($_FILES['file']['error'] != 4){
+                                $file = new FileUploader($_FILES['file']);
+                                if(!empty($file->getErrorsFile())){
+                                    $errorArray[] = join(',', $file->getErrorsFile());
+                                }else{
+                                    $imageName = $file->getNewFileName();
+                                }
+                            }
+                        }
+                        //check if there is some errors.
+                        if(sizeof($errorArray) > 0){
+                            //dump page with errors.
+
+                            $data['err'] = 'ERROR: ' . join(',', $errorArray);
+                            $data['action'] = 'create';
+                            $data['btn'] = 'Create';
+                            $data['page'] = 'createStudent';
+                            $data['actionLink'] = 'school/students/create';
+                            $page = new Page("Create Student");
+                            $page->setComponent("htmlSchool.php", $data);
+                            $page->addCss("school.css");
+                            $page->addJs('school.js');
+                            $page->dumpView();
+                        }
+                        // there no errors.
+                        else{
+                            // create new student without image.
+                            if($imageName == NULL){
+                                // created new student.
+                                $studentId = $studentModel->addStudentWithoutImage($post['student_name'], $post['student_phone'], $post['student_email']);
+                                // check if student created and student selected courses.
+                                if(!empty($checkBox) && !empty($studentId)){
+                                    $size = count($checkBox);
+                                    for($i = 0; $i < $size; $i++){
+                                        $studentModel->insertStudentCourses($checkBox[$i], $studentId);
+                                    }
+                                }
+                            }
+                            // create new student with image.
+                            else{
+                                // created new student with image.
+                                $studentModel->addStudent($post['student_name'], $post['student_phone'], $post['student_email'], $imageName);
+                                // check if student created and student selected courses.
+                                if(!empty($checkBox) && !empty($studentId)){
+                                    $size = count($checkBox);
+                                    for($i = 0; $i < $size; $i++){
+                                        $studentModel->insertStudentCourses($checkBox[$i], $studentId);
+                                    }
+                                }
+                            }
+                            // new student created redirect to school page.
+                            header("location: /" . ROOT . "school");
+                        }
+                    }
+                    //method post empty redirect to school page.
+                    else{
+                        header("location: /" . ROOT . "school");
+                    }
+                }
+            }
+            //user don't have permission create student, redirect to login page.
+            else{
+                header("location: /" . ROOT . 'login');
+            }
+        }
+
+        /**
+         * function get one parameter student id.
+         * if user don't have permission edit student will redirect to login page,
+         * if student with this id not exist redirect to school page,
+         * else edit student, and redirect to student details page.
+         * @param $id
+         */
+        public function editStudent($id)
+        {
+            // check if you have permission edit student.
+            if(!empty(Session::logged()['role'] == 'owner') || !empty(Session::logged()['role'] == 'manager') || !empty(Session::logged()['role'] == 'sale')){
+                $studentModel = new StudentModel();
+                $student = $studentModel->getStudentByID($id);
+                //check if student with this id exist.
+                if($student){
+                    // GET METHOD
+                    if($_SERVER['REQUEST_METHOD'] == 'GET'){
+
+                        $temp = null;
+                        $checkBoxCourses = $studentModel->getAllCoursesIDsOfStudent($id);
+                        for($i = 0; $i < count($checkBoxCourses); $i++){
+                            $temp[] = $checkBoxCourses[$i]['courses_id'];
+                        }
+
+                        $data = null;
+                        $data['checkBox'] = $temp;
+                        $data['create'] = $student;
+                        $data['actionLink'] = 'school/students/'.$id;
+                        $data['btn'] = "Edit";
+                        $data['page'] = 'editStudent';
+                        $p = new Page("Edit Student");
+                        $p->setComponent("htmlSchool.php", $data);
+                        $p->addCss("school.css");
+                        $p->addJs('school.js');
+                        $p->dumpView();
+
+                    }
+                    // POST METHOD
+                    else if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                        $errorArray = [];
+                        $post = $_POST;
+                        $imageName = NULL;
+                        $data = NULL;
+                        $checkBox = NULL;
+
+                        // checking if post not empty.
+                        if(!empty($post)){
+                            // insert all checkbox selected.
+                            $checkBox = $_POST['check_list'];
+
+                            // validation of inputs.
+                            if(empty(trim($post['student_name']))){
+                                $errorArray[] = "Name";
+                            }else{
+                                $data['create']['student_name'] = trim($post['student_name']);
+                            }
+                            if(empty(trim($post['student_email']))){
+                                $errorArray[] = "Email";
+                            }else{
+                                //
+                                if(($student['student_email'] == Session::logged()['email']) && ($student['student_id'] != Session::logged()['id']) ){
+                                    $errorArray[] = "This email belong to another student";
+                                }
+                                $data['create']['student_email'] = trim($post['student_email']);
+                            }
+                            if(empty(trim($post['student_phone']))){
+                                $errorArray[] = "phone";
+                            }else{
+                                $data['create']['student_phone'] = trim($post['student_phone']);
+                            }
+
+                            // check if image exist.
+                            if(isset($_FILES['file'])){
+                                if($_FILES['file']['error'] != 4){
+                                    $file = new FileUploader($_FILES['file']);
+                                    if(!empty($file->getErrorsFile())){
+                                        $errorArray[] = join(',', $file->getErrorsFile());
+                                    }else{
+                                        $imageName = $file->getNewFileName();
+                                    }
+                                }
+                            }
+                            //check if there is some errors.
+                            if(sizeof($errorArray) > 0){
+                                //dump errors.
+
+                                $data['err'] = 'ERROR: ' . join(',', $errorArray);
+                                $data['action'] = 'create';
+                                $data['btn'] = 'Create';
+                                $data['page'] = 'createStudent';
+                                $data['actionLink'] = 'school/students/create';
+                                $page = new Page("Create Student");
+                                $page->setComponent("htmlSchool.php", $data);
+                                $page->addCss("school.css");
+                                $page->addJs('school.js');
+                                $page->dumpView();
+                            }
+                            // there no errors.
+                            else{
+                                // edit student without image.
+                                if($imageName == NULL){
+                                    // edit student.
+                                    $studentModel->editStudentWithoutImage($id,$post['student_name'], $post['student_phone'], $post['student_email']);
+                                    // check if student selected courses.
+                                    if(!empty($checkBox)){
+                                        //delete all courses that student registered.
+                                        $studentModel->deleteStudentCourses($id);
+                                        $size = count($checkBox);
+                                        // add courses that student choose.
+                                        for($i = 0; $i < $size; $i++){
+                                            $studentModel->insertStudentCourses($checkBox[$i], $student['student_id']);
+                                        }
+                                    }
+                                    //student don't have any courses.
+                                    else{
+                                        $studentModel->deleteStudentCourses($id);
+                                    }
+                                }
+                                // create new student with image
+                                else{
+                                    //if student have image and changing to new, delete old image.
+                                    if($student['student_img'] != ''){
+                                        $file = new FileUploader();
+                                        $file->deleteFile($student['student_img']);
+                                    }
+                                    // edit student with image.
+                                    $studentModel->editStudent($id,$post['student_name'], $post['student_phone'], $post['student_email'], $imageName);
+                                    // check if student selected courses.
+                                    if(!empty($checkBox)){
+                                        //delete all courses that student registered.
+                                        $studentModel->deleteStudentCourses($id);
+                                        $size = count($checkBox);
+                                        for($i = 0; $i < $size; $i++){
+                                            $studentModel->insertStudentCourses($checkBox[$i], $student['student_id']);
+                                        }
+                                    }
+                                    //student don't have any courses.
+                                    else{
+                                        $studentModel->deleteStudentCourses($id);
+                                    }
+                                }
+                                // after editing student redirect to student details page
+                                header("location: /" . ROOT . "school/students/".$id);
+                            }
+                        }
+                        //method post empty, redirect to school page.
+                        else{
+                            header("location: /" . ROOT . "school");
+                        }
+                    }
+                }
+                // student with this id not exist redirect to school page.
+                else{
+                    header("location: /" . ROOT . 'school');
+                }
+            }
+            // user don't have permissions edit student, redirect to login page.
+            else{
+                header("location: /" . ROOT . 'login');
+            }
+        }
+
+        /**
+         * function delete Student get one parameter student id,
+         * if user don't have permissions delete student, redirect to login page,
+         * if student with this id not exist redirect to school page,
+         * else delete student by id, and redirect to school page.
+         * @param $id
+         */
+        public function deleteStudent($id)
+        {
+            // only owner or manager or sale can delete student.
+            if(Session::logged()['role'] =='owner' || Session::logged()['role'] =='manager' || Session::logged()['role'] =='sale')
+            {
+                $studentModel = new StudentModel();
+                // get all data of student for delete him.
+                $student = $studentModel->getStudentByID($id);
+                // check if student exist for delete.
+                if($student){
+                    //delete all courses where student registered.
+                    $studentModel->deleteStudentCourses($id);
+                    //delete student.
+                    $studentModel->deleteStudent($id);
+                    //delete image of student
+                    $file = new FileUploader();
+                    $file->deleteFile($student['student_img']);
+                    // after deleting student redirect to school page.
+                    header("location: /" . ROOT . 'school');
+                }
+                // student with this id not exist redirect to school page.
+                else{
+                    header("location: /" . ROOT . 'school');
+                }
+            }
+            // user don't have permission delete student, will redirect to login page.
+            else{
+                header("location: /" . ROOT . 'login');
+            }
+        }
+
+        /**
+         * function get one parameter course id,
+         * if user have permissions to view this page and course with this id exist,
+         * dump course details page.
+         * @param $id
+         */
+        public function courseDetails($id)
+        {
+            // check if you have permission to see course details.
+            if(!empty(Session::logged()['role'] == 'owner') || !empty(Session::logged()['role'] == 'manager') || !empty(Session::logged()['role'] == 'sale')){
+
+                    $courseModel = new CourseModel();
+                    $course = $courseModel->getCourseByID($id);
+                    // check if student with this id exist.
+                    if($course){
+                        //dump course details page.
+                        $data = NULL;
+                        $data['create'] = $course;
+                        $data['page'] = "courseDetails";
+                        $p = new Page("Course Details");
+                        $p->setComponent("htmlSchool.php", $data);
+                        $p->addCss("school.css");
+                        $p->addJs('school.js');
+                        $p->dumpView();
+                    }
+                    // course with this id not exist redirect to school page
+                    else{
+                        header("location: /" . ROOT . "school");
+                    }
+            }
+            // only owner, manager or sale can get here, someone else redirect to school
+            else{
+                header("location: /" . ROOT . "school");
+            }
+        }
+
+        /**
+         * function check if user have permissions to view this page to create new course,
+         * also checking if exist another course with same name,
+         * if there wasn't errors create new course, and redirect to school page.
+         */
+        public function createCourse()
+        {
+            // check if you have permission create course.
+            if(!empty(Session::logged()['role'] == 'owner') || !empty(Session::logged()['role'] == 'manager')){
+                // GET METHOD
+                if($_SERVER['REQUEST_METHOD'] == 'GET'){
+                    //dump create course page.
+
+                    $data = NULL;
+                    $data['actionLink'] = ROOT . 'school/courses/create';
+                    $data['btn'] = "Create";
+                    $data['page'] = 'createCourse';
+                    $p = new Page("Add Course");
+                    $p->setComponent("htmlSchool.php", $data);
+                    $p->addCss("school.css");
+                    $p->addJs('school.js');
+                    $p->dumpView();
+
+                }
+                // POST METHOD
+                else if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                    $errorArray = [];
+                    $post = $_POST;
+                    $imageName = NULL;
+                    $data = NULL;
+                    $courseModel = new CourseModel();
+
+                    // checking if post not empty
+                    if(!empty($post)){
+                        //validations
+                        if(empty(trim($post['course_name']))){
+                            $errorArray[] = "Name";
+                        }else{
+                            //checking if exist another course with same name.
+                            if($courseModel->checkIfCourseExist($post['course_name'])){
+                                $errorArray[] = "This course already exist";
+                            }
+                            $data['create']['course_name'] = trim($post['course_name']);
+                        }
+                        if(empty(trim($post['course_description']))){
+                            $errorArray[] = "description";
+                        }else{
+                            $data['create']['course_description'] = trim($post['course_description']);
+                        }
+
+                        // check if image exist
+                        if(isset($_FILES['file'])){
+                            if($_FILES['file']['error'] != 4){
+                                $file = new FileUploader($_FILES['file']);
+                                if(!empty($file->getErrorsFile())){
+                                    $errorArray[] = join(',', $file->getErrorsFile());
+                                }else{
+                                    $imageName = $file->getNewFileName();
+                                }
+                            }
+                        }
+                        //check if there are errors.
+                        if(sizeof($errorArray) > 0){
+                            //dump errors.
+                            $data['err'] = 'ERROR: ' . join(',', $errorArray);
+                            $data['action'] = 'create';
+                            $data['btn'] = 'Create';
+                            $data['page'] = 'createCourse';
+                            $page = new Page("Create Course");
+                            $page->setComponent("htmlSchool.php", $data);
+                            $page->addCss("school.css");
+                            $page->addJs('school.js');
+                            $page->dumpView();
+                        }else{
+                            //create new course without image.
+                            if($imageName == NULL){
+                                $courseModel->addCourseWithoutImage($post['course_name'], $post['course_description']);
+                            }
+                            //create new course with image.
+                            else{
+                                $courseModel->addCourse($post['course_name'], $post['course_description'], $imageName);
+                            }
+                            //after creating new course redirect to school page.
+                            header("location: /" . ROOT . "school");
+                        }
+                    }
+                    //method post empty redirect to school page.
+                    else{
+                        header("location: /" . ROOT . "school");
+                    }
+                }
+
+            }
+            //user don't have permission create student, redirect to login page.
+            else{
+                header("location: /" . ROOT . 'login');
+            }
+        }
+
+        /**
+         * function get one parameter course id.
+         * if user don't have permission edit course will redirect to login page,
+         * if course with this id not exist redirect to school page,
+         * also checking if exist another course with same name,
+         * else edit course, and redirect to school page.
+         * @param $id
+         */
+        public function editCourse($id)
+        {
+            // check if you have permission create course.
+            if(!empty(Session::logged()['role'] == 'owner') || !empty(Session::logged()['role'] == 'manager')){
+
+                $courseModel = new CourseModel();
+                //check if course with this id exists.
+                $course = $courseModel->getCourseByID($id);
+                if($course){
+                    // GET METHOD
+                    if($_SERVER['REQUEST_METHOD'] == 'GET'){
+                       //dump edit course page.
+                        $data = NULL;
+                        $data['create'] = $courseModel->getCourseByID($id);
+                        $data['actionLink'] = ROOT . 'school/courses/' . $id . '/edit';
+                        $data['btn'] = "Edit";
+                        $data['page'] = 'editCourse';
+                        $p = new Page("Edit Course");
+                        $p->setComponent("htmlSchool.php", $data);
+                        $p->addCss("school.css");
+                        $p->addJs('school.js');
+                        $p->dumpView();
+                    }
+                    // POST METHOD
+                    else if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                        $errorArray = [];
+                        $post = $_POST;
+                        $imageName = NULL;
+                        $data = NULL;
+
+                        // checking if post not empty.
+                        if(!empty($post)){
+                            //validations
+                            if(empty(trim($post['course_name']))){
+                                $errorArray[] = "Name";
+                            }else{
+                                //checking if exist another course with same name.
+                                if($courseModel->checkIfCourseExist($post['name'])){
+                                    $errorArray[] = "This course already exist";
+                                }
+                                $data['create']['course_name'] = trim($post['course_name']);
+                            }
+                            if(empty(trim($post['course_description']))){
+                                $errorArray[] = "description";
+                            }else{
+                                $data['create']['course_description'] = trim($post['course_description']);
+                            }
+
+                            // check if image exist
+                            if(isset($_FILES['file'])){
+                                if($_FILES['file']['error'] != 4){
+                                    $file = new FileUploader($_FILES['file']);
+                                    if(!empty($file->getErrorsFile())){
+                                        $errorArray[] = join(',', $file->getErrorsFile());
+                                    }else{
+                                        $imageName = $file->getNewFileName();
+                                    }
+                                }
+                            }
+                            //check if there is some errors.
+                            if(sizeof($errorArray) > 0){
+                                //dump edit course page with errors.
+                                $data['err'] = 'ERROR: ' . join(',', $errorArray);
+                                $data['action'] = 'create';
+                                $data['btn'] = 'Create';
+                                $data['page'] = 'createCourse';
+                                $page = new Page("Create Course");
+                                $page->setComponent("htmlSchool.php", $data);
+                                $page->addCss("school.css");
+                                $page->addJs('school.js');
+                                $page->dumpView();
+                            }else{
+                                //edit course without changing image.
+                                if($imageName == NULL){
+                                    $courseModel->editCourseWithoutImage($id, $post['course_name'], $post['course_description']);
+                                }
+                                //edit course with image.
+                                else{
+                                    //if course have image and changing to new, delete old image.
+                                    if($course['course_img'] != ''){
+                                        $file = new FileUploader();
+                                        $file->deleteFile($course['course_img']);
+                                    }
+                                    $courseModel->editCourse($id, $post['course_name'], $post['course_description'], $imageName);
+                                }
+                                // after editing course redirect to course details page
+                                header("location: /" . ROOT . "school/courses/".$id);
+                            }
+                        }
+                    }
+                    //method post empty, redirect to school page.
+                    else{
+                        header("location: /" . ROOT . "school");
+                    }
+                }
+                // course with this id not exist redirect to school page.
+                else{
+                    header("location: /" . ROOT . 'school');
+                }
+            }
+            // only owner or manager can get here, someone else redirect to school.
+            else{
+                header("location: /" . ROOT . 'school');
+            }
+        }
+
+        /**
+         * function delete Course get one parameter course id,
+         * if user don't have permissions delete course, redirect to login page,
+         * if course with this id not exist redirect to school page,
+         * else delete course by id, and redirect to school page.
+         * @param $id
+         */
+        public function deleteCourse($id)
+        {
+            // only owner or manager or sale can delete course
+            if(Session::logged()['role'] =='owner' || Session::logged()['role'] =='manager')
+            {
+                $courseModel = new CourseModel();
+                // get all data of course for delete it.
+                $course = $courseModel->getCourseByID($id);
+                // check if course exist for delete.
+                if($course){
+                    $students = $courseModel->getSumAllStudentsOfCourse($id);
+                    //check if registered students on this course.
+                    if($students['sum'] == 0){
+                        $courseModel->deleteCourse($id);
+                        //delete image of course.
+                        $file = new FileUploader();
+                        $file->deleteFile($course['course_img']);
+
+                        //after deleting course redirect to school page.
+                        header("location: /" . ROOT . 'school');
+                    }
+                    // there is student on this course can not delete this course redirect to school page.
+                    else{
+                        header("location: /" . ROOT . 'school');
+                    }
+                }
+                // course with this id not exist redirect to school page
+                else{
+                    header("location: /" . ROOT . 'school');
+                }
+            }
+            // user don't have permission delete course redirect to login page
+            else{
+                header("location: /" . ROOT . 'login');
+            }
+        }
+
+    }

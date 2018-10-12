@@ -1,0 +1,717 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="cc231dff-8ccd-4708-b9bc-92d022cb41f7" name="Default" comment="" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="school.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/school.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="795">
+              <caret line="240" column="16" selection-start-line="240" selection-start-column="16" selection-end-line="240" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="administrator.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/js/administrator.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="731">
+              <caret line="181" column="8" selection-start-line="181" selection-start-column="8" selection-end-line="181" selection-end-column="8" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="CSS File" />
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>debu</find>
+      <find>createCourse()</find>
+      <find>create or</find>
+      <find>$this-&gt;title</find>
+      <find>Total Administrators</find>
+      <find>addAdmin</find>
+      <find>Total Administrators:</find>
+      <find>col-sm-offset-1 col-sm-7</find>
+      <find>sales</find>
+      <find>data['page']</find>
+      <find>btnSave</find>
+      <find>none</find>
+      <find>adminList</find>
+      <find>checBboxCourses</find>
+      <find>studentDetailsCtr</find>
+      <find>checkIfUserExist</find>
+      <find>ctrAdministration</find>
+      <find>check</find>
+      <find>getAdministratorByID</find>
+      <find>DATABASE</find>
+      <find>DataBase</find>
+      <find>listOfAdministrators()</find>
+      <find>gulp.task</find>
+      <find>Registered students for courses</find>
+      <find>Registered students for this course:</find>
+      <find>image</find>
+    </findStrings>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/css/navigation.css" />
+        <option value="$PROJECT_DIR$/css/footer.css" />
+        <option value="$PROJECT_DIR$/libs/FileUploads.php" />
+        <option value="$PROJECT_DIR$/components/htmlSignupForm.php" />
+        <option value="$PROJECT_DIR$/js/addeditcourse.js" />
+        <option value="$PROJECT_DIR$/css/addeditcourse.css" />
+        <option value="$PROJECT_DIR$/components/test.php" />
+        <option value="$PROJECT_DIR$/libs/helper.php" />
+        <option value="$PROJECT_DIR$/js/404.js" />
+        <option value="$PROJECT_DIR$/components/404.php" />
+        <option value="$PROJECT_DIR$/classes/userModel.php" />
+        <option value="$PROJECT_DIR$/classes/User.php" />
+        <option value="$PROJECT_DIR$/css/login.css" />
+        <option value="$PROJECT_DIR$/classes/administratorModel.php" />
+        <option value="$PROJECT_DIR$/libs/AutoLoader.php" />
+        <option value="$PROJECT_DIR$/index.php" />
+        <option value="$PROJECT_DIR$/models/UserModel.php" />
+        <option value="$PROJECT_DIR$/models/AdministratorModel.php" />
+        <option value="$PROJECT_DIR$/models/StudentModel.php" />
+        <option value="$PROJECT_DIR$/models/CourseModel.php" />
+        <option value="$PROJECT_DIR$/.htaccess" />
+        <option value="$PROJECT_DIR$/css/font-awesome.min.css" />
+        <option value="$PROJECT_DIR$/css/main.css" />
+        <option value="$PROJECT_DIR$/js/login.js" />
+        <option value="$PROJECT_DIR$/components/htmlAddEditAdministrator.php" />
+        <option value="$PROJECT_DIR$/classes/View.php" />
+        <option value="$PROJECT_DIR$/classes/Page.php" />
+        <option value="$PROJECT_DIR$/classes/ErrorPage.php" />
+        <option value="$PROJECT_DIR$/libs/Session.php" />
+        <option value="$PROJECT_DIR$/libs/autoLoader.php" />
+        <option value="$PROJECT_DIR$/libs/DataBase.php" />
+        <option value="$PROJECT_DIR$/libs/PasswordHash.php" />
+        <option value="$PROJECT_DIR$/libs/routing.php" />
+        <option value="$PROJECT_DIR$/controllers/MainController.php" />
+        <option value="$PROJECT_DIR$/controllers/Administrator.php" />
+        <option value="$PROJECT_DIR$/components/htmlTop.php" />
+        <option value="$PROJECT_DIR$/components/htmlNavigation.php" />
+        <option value="$PROJECT_DIR$/components/htmlFooter.php" />
+        <option value="$PROJECT_DIR$/components/htmlAdministrator.php" />
+        <option value="$PROJECT_DIR$/components/htmlCourseDetails.php" />
+        <option value="$PROJECT_DIR$/components/htmlStudentDetails.php" />
+        <option value="$PROJECT_DIR$/components/htmlAddEditStudent.php" />
+        <option value="$PROJECT_DIR$/components/htmlAddEditCourse.php" />
+        <option value="$PROJECT_DIR$/components/htmlLoginForm.php" />
+        <option value="$PROJECT_DIR$/components/htmlSchool.php" />
+        <option value="$PROJECT_DIR$/css/school.css" />
+        <option value="$PROJECT_DIR$/controllers/School.php" />
+        <option value="$PROJECT_DIR$/css/administrator.css" />
+        <option value="$PROJECT_DIR$/libs/FileUploader.php" />
+        <option value="$PROJECT_DIR$/js/school.js" />
+        <option value="$PROJECT_DIR$/js/administrator.js" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP XAMPP" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1066" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="theschool" type="b2602c69:ProjectViewProjectNode" />
+              <item name="theschool" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="theschool" type="b2602c69:ProjectViewProjectNode" />
+              <item name="theschool" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="controllers" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="theschool" type="b2602c69:ProjectViewProjectNode" />
+              <item name="theschool" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="css" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="theschool" type="b2602c69:ProjectViewProjectNode" />
+              <item name="theschool" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="js" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="theschool" type="b2602c69:ProjectViewProjectNode" />
+              <item name="theschool" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="libs" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="theschool" type="b2602c69:ProjectViewProjectNode" />
+              <item name="theschool" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="models" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="C:/composer/composer.bat" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="settings.editor.selected.configurable" value="preferences.externalTools" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\PhpstormProjects\theschool\models" />
+      <recent name="E:\PhpstormProjects\theschool\images" />
+      <recent name="E:\PhpstormProjects\theschool\libs" />
+      <recent name="E:\PhpstormProjects\theschool\classes" />
+      <recent name="E:\PhpstormProjects\theschool\components" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\PhpstormProjects\theschool\models" />
+      <recent name="E:\PhpstormProjects\theschool\images" />
+      <recent name="E:\WebstormProjects\theschool\libs" />
+      <recent name="E:\WebstormProjects\theschool" />
+      <recent name="E:\WebstormProjects\theschool\classes" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="cc231dff-8ccd-4708-b9bc-92d022cb41f7" name="Default" comment="" />
+      <created>1521529804782</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1521529804782</updated>
+      <workItem from="1521529806141" duration="15734000" />
+      <workItem from="1521551621097" duration="154000" />
+      <workItem from="1521551777633" duration="1924000" />
+      <workItem from="1521553768630" duration="40000" />
+      <workItem from="1521553875332" duration="31723000" />
+      <workItem from="1521733080140" duration="94000" />
+      <workItem from="1521753914750" duration="51000" />
+      <workItem from="1521970650688" duration="1129000" />
+      <workItem from="1521971822932" duration="25352000" />
+      <workItem from="1522008301644" duration="20723000" />
+      <workItem from="1522074517026" duration="36940000" />
+      <workItem from="1522169495590" duration="10944000" />
+      <workItem from="1522182845965" duration="42254000" />
+      <workItem from="1522233848356" duration="2220000" />
+      <workItem from="1522270170452" duration="16832000" />
+      <workItem from="1522301351995" duration="21749000" />
+      <workItem from="1522366945068" duration="21000" />
+      <workItem from="1522367037939" duration="16026000" />
+      <workItem from="1522385922919" duration="1063000" />
+      <workItem from="1522395199338" duration="14000000" />
+      <workItem from="1522439955096" duration="6713000" />
+      <workItem from="1522449134273" duration="35836000" />
+      <workItem from="1522542084739" duration="67214000" />
+      <workItem from="1522667682922" duration="25418000" />
+      <workItem from="1522755217997" duration="888000" />
+      <workItem from="1522818481941" duration="2470000" />
+      <workItem from="1522821488717" duration="11709000" />
+      <workItem from="1522836251888" duration="656000" />
+      <workItem from="1522843648012" duration="17231000" />
+      <workItem from="1522913375212" duration="15341000" />
+      <workItem from="1522957778988" duration="17573000" />
+      <workItem from="1522993223567" duration="1059000" />
+      <workItem from="1522996454622" duration="7289000" />
+      <workItem from="1523045078553" duration="8818000" />
+      <workItem from="1523061580005" duration="390000" />
+      <workItem from="1523063941819" duration="1962000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="479540000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14072494" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
+      <window_info anchor="right" id="Database" order="3" />
+      <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.3297414" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="PHP-CGI Server" order="7" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3275862" />
+    </layout>
+    <layout-to-restore>
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17110874" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="PHP-CGI Server" order="8" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32903227" />
+      <window_info anchor="right" id="Database" order="3" />
+      <window_info anchor="bottom" id="Terminal" order="9" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Database Changes" order="12" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="10" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+    </layout-to-restore>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="8" />
+    </breakpoint-manager>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/controllers/School.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6324">
+          <caret line="372" column="37" lean-forward="true" selection-start-line="372" selection-start-column="37" selection-end-line="372" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/school.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3043">
+          <caret line="179" column="22" selection-start-line="179" selection-start-column="22" selection-end-line="179" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/components/htmlCtr.php" />
+    <entry file="file://$PROJECT_DIR$/components/template.php" />
+    <entry file="file://$PROJECT_DIR$/css/addeditcourse.css" />
+    <entry file="file://$PROJECT_DIR$/components/test.php" />
+    <entry file="file://$PROJECT_DIR$/components/htmlSignupForm.php" />
+    <entry file="file://$PROJECT_DIR$/components/htmlBottom.php" />
+    <entry file="file://$PROJECT_DIR$/classes/User.php" />
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/font-awesome.min.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="91" lean-forward="true" selection-start-line="3" selection-start-column="91" selection-end-line="3" selection-end-column="91" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.htaccess">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="6" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/login.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="9" column="8" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://PHP/E:/PhpstormProjects/theschool">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>PHP</ID>
+          <OriginalElement>$PROJECT_DIR$</OriginalElement>
+          <nodes>
+            <node x="" y="">$PROJECT_DIR$/css</node>
+            <node x="" y="">$PROJECT_DIR$/models</node>
+            <node x="" y="">$PROJECT_DIR$/instruction</node>
+            <node x="" y="">$PROJECT_DIR$/fonts</node>
+            <node x="" y="">$PROJECT_DIR$/libs</node>
+            <node x="" y="">$PROJECT_DIR$/images</node>
+            <node x="" y="">$PROJECT_DIR$/classes</node>
+            <node x="" y="">$PROJECT_DIR$/controllers</node>
+            <node x="" y="">$PROJECT_DIR$/js</node>
+            <node x="" y="">$PROJECT_DIR$/components</node>
+            <node x="" y="">$PROJECT_DIR$/uploads</node>
+          </nodes>
+          <notes />
+          <edges />
+          <settings layout="Hierarchic Group" zoom="1.0" x="150.0" y="163.0" />
+          <SelectedNodes />
+          <Categories />
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>private</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/AdministratorModel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="135" column="11" selection-start-line="135" selection-start-column="11" selection-end-line="135" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/View.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1276">
+          <caret line="44" column="17" selection-start-line="44" selection-start-column="17" selection-end-line="44" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/Page.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="841">
+          <caret line="29" column="26" selection-start-line="29" selection-start-column="26" selection-end-line="29" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/ErrorPage.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1008">
+          <caret line="42" column="36" selection-start-line="42" selection-start-column="36" selection-end-line="42" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libs/Session.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="4" column="7" selection-start-line="4" selection-start-column="7" selection-end-line="4" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libs/helper.php" />
+    <entry file="file://$PROJECT_DIR$/libs/DataBase.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="656">
+          <caret line="134" column="7" selection-start-line="134" selection-start-column="7" selection-end-line="134" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libs/autoLoader.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="754">
+          <caret line="60" lean-forward="true" selection-start-line="60" selection-end-line="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/CourseModel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="143" column="9" selection-start-line="143" selection-start-column="9" selection-end-line="143" selection-end-column="9" />
+          <folding>
+            <element signature="e#44#312#0#PHP" />
+            <element signature="n#checkIfCourseExist#0;n#CourseModel#0;n#!!top" />
+            <element signature="e#600#717#0#PHP" />
+            <element signature="n#deleteCourse#0;n#CourseModel#0;n#!!top" />
+            <element signature="e#973#1067#0#PHP" />
+            <element signature="n#getAllCourses#0;n#CourseModel#0;n#!!top" />
+            <element signature="e#1262#1363#0#PHP" />
+            <element signature="n#getAllCoursesIDsAndNames#0;n#CourseModel#0;n#!!top" />
+            <element signature="e#1595#1749#0#PHP" />
+            <element signature="n#getCourseByID#0;n#CourseModel#0;n#!!top" />
+            <element signature="e#2013#2167#0#PHP" />
+            <element signature="n#getCourseNameAndImage#0;n#CourseModel#0;n#!!top" />
+            <element signature="e#2463#2607#0#PHP" />
+            <element signature="n#addCourseWithoutImage#0;n#CourseModel#0;n#!!top" />
+            <element signature="e#2987#3142#0#PHP" />
+            <element signature="n#addCourse#0;n#CourseModel#0;n#!!top" />
+            <element signature="e#3565#3739#0#PHP" />
+            <element signature="n#editCourse#0;n#CourseModel#0;n#!!top" />
+            <element signature="e#4219#4382#0#PHP" />
+            <element signature="n#editCourseWithoutImage#0;n#CourseModel#0;n#!!top" />
+            <element signature="e#4810#4897#0#PHP" />
+            <element signature="n#countCourses#0;n#CourseModel#0;n#!!top" />
+            <element signature="e#5110#5285#0#PHP" />
+            <element signature="n#getSumAllStudentsOfCourse#0;n#CourseModel#0;n#!!top" />
+            <element signature="e#5611#5780#0#PHP" />
+            <element signature="n#getAllCoursesNameAndImageOfStudent#0;n#CourseModel#0;n#!!top" />
+            <element signature="e#6219#6374#0#PHP" />
+            <element signature="n#getAllStudentsNameAndImageCourse#0;n#CourseModel#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/UserModel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/components/404.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" selection-start-line="12" selection-end-line="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libs/routing.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="59" selection-start-line="18" selection-start-column="59" selection-end-line="18" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/404.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="10" column="3" selection-start-line="10" selection-start-column="3" selection-end-line="10" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/components/htmlNavigation.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="550">
+          <caret line="28" column="57" selection-start-line="28" selection-start-column="57" selection-end-line="28" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/components/htmlTop.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="475">
+          <caret line="19" column="4" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/Administrator.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="252" column="83" selection-start-line="252" selection-start-column="83" selection-end-line="252" selection-end-column="83" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libs/PasswordHash.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="527">
+          <caret line="31" column="20" selection-start-line="31" selection-start-column="20" selection-end-line="31" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/MainController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="85" column="48" selection-start-line="85" selection-start-column="48" selection-end-line="85" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/components/htmlFooter.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="8" column="21" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/components/htmlStudentDetails.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="682">
+          <caret line="43" column="42" selection-start-line="43" selection-start-column="42" selection-end-line="43" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/components/htmlAddEditAdministrator.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="19" selection-start-line="7" selection-start-column="19" selection-end-line="7" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/components/htmlAddEditCourse.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="52" lean-forward="true" selection-start-line="16" selection-start-column="19" selection-end-line="16" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/components/htmlLoginForm.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="43" selection-start-line="22" selection-start-column="43" selection-end-line="22" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/components/htmlSchool.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1411">
+          <caret line="83" column="65" lean-forward="true" selection-start-line="83" selection-start-column="65" selection-end-line="83" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/components/htmlAdministrator.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="404">
+          <caret line="53" column="48" selection-start-line="53" selection-start-column="48" selection-end-line="53" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/components/htmlCourseDetails.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1020">
+          <caret line="60" column="71" lean-forward="true" selection-start-line="60" selection-start-column="27" selection-end-line="60" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/components/htmlAddEditStudent.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="54" column="103" selection-start-line="54" selection-start-column="103" selection-end-line="54" selection-end-column="103" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/footer.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="1" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/main.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-column="86" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/navigation.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" selection-start-line="21" selection-end-line="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/StudentModel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2839">
+          <caret line="167" column="49" selection-start-line="167" selection-start-column="17" selection-end-line="167" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/administrator.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="676">
+          <caret line="122" column="33" selection-start-line="122" selection-start-column="33" selection-end-line="122" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/school.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="744">
+          <caret line="179" column="22" selection-start-line="179" selection-start-column="22" selection-end-line="179" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/School.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="372" column="37" selection-start-line="372" selection-start-column="37" selection-end-line="372" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libs/FileUploader.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2006">
+          <caret line="8" column="38" selection-start-line="8" selection-start-column="38" selection-end-line="8" selection-end-column="38" />
+          <folding>
+            <element signature="n#getAllowedFormats#0;n#FileUploader#0;n#!!top" />
+            <element signature="n#setAllowedFormats#0;n#FileUploader#0;n#!!top" />
+            <element signature="n#getAllowedSize#0;n#FileUploader#0;n#!!top" />
+            <element signature="n#setAllowedSize#0;n#FileUploader#0;n#!!top" />
+            <element signature="n#getErrorsFile#0;n#FileUploader#0;n#!!top" />
+            <element signature="n#setErrorsFile#0;n#FileUploader#0;n#!!top" />
+            <element signature="n#getFile#0;n#FileUploader#0;n#!!top" />
+            <element signature="n#setFile#0;n#FileUploader#0;n#!!top" />
+            <element signature="n#getNewFileName#0;n#FileUploader#0;n#!!top" />
+            <element signature="n#setNewFileName#0;n#FileUploader#0;n#!!top" />
+            <element signature="n#getFileName#0;n#FileUploader#0;n#!!top" />
+            <element signature="n#setFileName#0;n#FileUploader#0;n#!!top" />
+            <element signature="n#getFileTmpName#0;n#FileUploader#0;n#!!top" />
+            <element signature="n#setFileTmpName#0;n#FileUploader#0;n#!!top" />
+            <element signature="n#getFileSize#0;n#FileUploader#0;n#!!top" />
+            <element signature="n#setFileSize#0;n#FileUploader#0;n#!!top" />
+            <element signature="n#getFileError#0;n#FileUploader#0;n#!!top" />
+            <element signature="n#setFileError#0;n#FileUploader#0;n#!!top" />
+            <element signature="n#getFileType#0;n#FileUploader#0;n#!!top" />
+            <element signature="n#setFileType#0;n#FileUploader#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/school.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="795">
+          <caret line="240" column="16" selection-start-line="240" selection-start-column="16" selection-end-line="240" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/administrator.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="731">
+          <caret line="181" column="8" selection-start-line="181" selection-start-column="8" selection-end-line="181" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

@@ -1,0 +1,46 @@
+nav{
+    background-color: #d7e9ea;
+    margin: 0;
+
+}
+.navi a:hover, a:visited, a:link, a:active
+{
+    text-decoration: none;
+}
+.navi li{
+    display: inline-block;
+    padding: 0 8px;
+    font-size: 44px;
+}
+
+.navi li:last-child{
+    float: right;
+    display: flex;
+    right: 0;
+    top: 0 ;
+}
+
+.navi ul li:first-child {
+    float: left;
+    top: 0;
+    left: 0;
+}
+.navi ul > li > a:last-child{
+    margin-left: 10px;
+}
+.navi ul img{
+    height: 30px;
+    width: 210px;
+}
+.navi .image{
+    height: 70px;
+    width: 70px;
+    margin: 3.67px 10px 0 10px;
+    border-radius: 25px;
+}
+.navi span{
+    padding: 0 14px;
+}
+.navi img{
+    height: 70px;
+}
